@@ -56,7 +56,7 @@ jobs:
         run: |
           gcloud config set run/region us-central1
           gcloud config set project fgregg-puddle
-          datasette publish cloudrun report_card.db cps_graduation_rates.db
+          datasette publish cloudrun report_card.db cps_graduation_rates.db \
             --memory 8Gi \
             --cpu 2 \
             --service schooldata \
