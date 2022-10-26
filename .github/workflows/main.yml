@@ -1,0 +1,73 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Update Database
+
+concurrency: 
+  group: database-build
+
+
+# Controls when the action will run. 
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '15 10 * * *'    
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'  
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+            workload_identity_provider: 'projects/1057911442537/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+            service_account: 'my-service-account@fgregg-puddle.iam.gserviceaccount.com'
+      - name: Set up Cloud Run
+        uses: google-github-actions/setup-gcloud@v0
+      - name: set longer cloud build timeout
+        run: |
+          gcloud config set builds/timeout 1800
+          gcloud config get builds/timeout
+      - name: dependencies
+        run: |
+          pip install sqlite-utils
+          pip install https://github.com/fgregg/datasette/archive/refs/heads/no_limit_csv_publish.zip
+      - name: get databases
+        run: |
+          wget https://github.com/Chicago-Data-Collaborative-Schools/isbe-reportcards/releases/download/nightly/report_card.db.zip
+          wget https://github.com/Chicago-Data-Collaborative-Schools/cps-graduation-rates/releases/download/nightly/cps_graduation_rates.db.zip
+          unzip report_card.db.zip
+          unzip cps_graduation_rates.db.zip
+
+      - name: Deploy to Cloudrun
+        run: |
+          gcloud config set run/region us-central1
+          gcloud config set project fgregg-puddle
+          datasette publish cloudrun report_card.db cps_graduation_rates.db
+            --memory 8Gi \
+            --cpu 2 \
+            --service schooldata \
+            --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors --setting facet_time_limit_ms 500 --setting allow_facet off --setting trace_debug 1" \
+            -m metadata.yml \
+            --install=datasette-atom \
+            --install=datasette-rure \
+            --install=pysqlite3-binary \
+            --install=datasette-hashed-urls \
+            --install=datasette-block-robots \
+            --install=datasette-pretty-traces \
+            --version-note=$GITHUB_RUN_NUMBER
+      - name: keepalive
+        uses: gautamkrishnar/keepalive-workflow@v1            
