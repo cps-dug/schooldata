@@ -49,14 +49,16 @@ jobs:
         run: |
           wget https://github.com/Chicago-Data-Collaborative-Schools/isbe-reportcards/releases/download/nightly/report_card.db.zip
           wget https://github.com/Chicago-Data-Collaborative-Schools/cps-graduation-rates/releases/download/nightly/cps_graduation_rates.db.zip
+          wget https://github.com/Chicago-Data-Collaborative-Schools/choice-offers/releases/download/yearly/choice_offers.db.zip
           unzip report_card.db.zip
           unzip cps_graduation_rates.db.zip
+          unzip choice_offers.db.zip
 
       - name: Deploy to Cloudrun
         run: |
           gcloud config set run/region us-central1
           gcloud config set project fgregg-puddle
-          datasette publish cloudrun report_card.db cps_graduation_rates.db \
+          datasette publish cloudrun report_card.db cps_graduation_rates.db choice_offers.db \
             --memory 8Gi \
             --cpu 2 \
             --service schooldata \
