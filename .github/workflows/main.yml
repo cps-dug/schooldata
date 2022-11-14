@@ -50,9 +50,11 @@ jobs:
           wget https://github.com/Chicago-Data-Collaborative-Schools/isbe-reportcards/releases/download/nightly/report_card.db.zip
           wget https://github.com/Chicago-Data-Collaborative-Schools/cps-graduation-rates/releases/download/nightly/cps_graduation_rates.db.zip
           wget https://github.com/Chicago-Data-Collaborative-Schools/choice-offers/releases/download/yearly/choice_offers.db.zip
+          wget https://anthonymoser.com/data/cps_positions.db.zip
           unzip report_card.db.zip
           unzip cps_graduation_rates.db.zip
           unzip choice_offers.db.zip
+          unzip cps_positions.db.zip
 
       - name: Deploy to Cloudrun
         run: |
