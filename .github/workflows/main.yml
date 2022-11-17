@@ -66,13 +66,12 @@ jobs:
             --memory 8Gi \
             --cpu 2 \
             --service schooldata \
-            --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors --setting facet_time_limit_ms 500 --setting trace_debug 1" \
+            --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors" \
             --install=datasette-atom \
             --install=datasette-rure \
             --install=pysqlite3-binary \
             --install=datasette-hashed-urls \
             --install=datasette-block-robots \
-            --install=datasette-pretty-traces \
             --version-note=$GITHUB_RUN_NUMBER
       - name: keepalive
         uses: gautamkrishnar/keepalive-workflow@v1            
