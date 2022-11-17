@@ -71,6 +71,7 @@ jobs:
             --spatialite \
             --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors" \
             --install=datasette-geojson \
+            --install=datasette-geojson-map \
             --install=datasette-atom \
             --install=datasette-rure \
             --install=pysqlite3-binary \
