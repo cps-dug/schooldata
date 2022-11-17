@@ -51,12 +51,14 @@ jobs:
           wget https://github.com/Chicago-Data-Collaborative-Schools/cps-graduation-rates/releases/download/nightly/cps_graduation_rates.db.zip
           wget https://github.com/Chicago-Data-Collaborative-Schools/choice-offers/releases/download/yearly/choice_offers.db.zip
           wget https://github.com/Chicago-Data-Collaborative-Schools/zoned-receiving/releases/download/nightly/zoned_receiving.db.zip
+          wget https://github.com/Chicago-Data-Collaborative-Schools/locations-boundaries/releases/download/nightly/geography.db.zip
           wget http://anthonymoser.com/data/cps_positions.db.zip
           unzip report_card.db.zip
           unzip cps_graduation_rates.db.zip
           unzip choice_offers.db.zip
           unzip cps_positions.db.zip
           unzip zoned_receiving.db.zip
+          unzip geography.db.zip
 
       - name: Deploy to Cloudrun
         run: |
@@ -66,6 +68,7 @@ jobs:
             --memory 8Gi \
             --cpu 2 \
             --service schooldata \
+            --spatialite \
             --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors" \
             --install=datasette-atom \
             --install=datasette-rure \
