@@ -70,6 +70,7 @@ jobs:
             --service schooldata \
             --spatialite \
             --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors" \
+            --install=datasette-geojson \
             --install=datasette-atom \
             --install=datasette-rure \
             --install=pysqlite3-binary \
