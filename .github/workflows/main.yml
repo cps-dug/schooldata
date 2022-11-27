@@ -54,6 +54,7 @@ jobs:
           wget https://github.com/Chicago-Data-Collaborative-Schools/locations-boundaries/releases/download/nightly/geography.db.zip
           wget https://github.com/Chicago-Data-Collaborative-Schools/demographics/releases/download/nightly/demographics.db.zip
           wget http://anthonymoser.com/data/cps_positions.db.zip
+          wget http://anthonymoser.com/data/budgets.db.zip
           unzip report_card.db.zip
           unzip cps_graduation_rates.db.zip
           unzip choice_offers.db.zip
@@ -61,6 +62,7 @@ jobs:
           unzip zoned_receiving.db.zip
           unzip geography.db.zip
           unzip demographics.db.zip
+          unzip budgets.db.zip
 
       - name: Deploy to Cloudrun
         run: |
