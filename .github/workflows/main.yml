@@ -47,12 +47,12 @@ jobs:
           pip install https://github.com/fgregg/datasette/archive/refs/heads/no_limit_csv_publish.zip
       - name: get databases
         run: |
-          wget https://github.com/Chicago-Data-Collaborative-Schools/isbe-reportcards/releases/download/nightly/report_card.db.zip
-          wget https://github.com/Chicago-Data-Collaborative-Schools/cps-graduation-rates/releases/download/nightly/cps_graduation_rates.db.zip
-          wget https://github.com/Chicago-Data-Collaborative-Schools/choice-offers/releases/download/yearly/choice_offers.db.zip
-          wget https://github.com/Chicago-Data-Collaborative-Schools/zoned-receiving/releases/download/nightly/zoned_receiving.db.zip
-          wget https://github.com/Chicago-Data-Collaborative-Schools/locations-boundaries/releases/download/nightly/geography.db.zip
-          wget https://github.com/Chicago-Data-Collaborative-Schools/demographics/releases/download/nightly/demographics.db.zip
+          wget https://github.com/cps-dug/isbe-reportcards/releases/download/nightly/report_card.db.zip
+          wget https://github.com/cps-dug/cps-graduation-rates/releases/download/nightly/cps_graduation_rates.db.zip
+          wget https://github.com/cps-dug/choice-offers/releases/download/yearly/choice_offers.db.zip
+          wget https://github.com/cps-dug/zoned-receiving/releases/download/nightly/zoned_receiving.db.zip
+          wget https://github.com/cps-dug/locations-boundaries/releases/download/nightly/geography.db.zip
+          wget https://github.com/cps-dug/demographics/releases/download/nightly/demographics.db.zip
           wget http://anthonymoser.com/data/cps_positions.db.zip
           wget http://anthonymoser.com/data/budgets.db.zip
           unzip report_card.db.zip
