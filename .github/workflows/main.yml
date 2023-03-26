@@ -71,6 +71,7 @@ jobs:
           datasette publish cloudrun *.db \
             --memory 8Gi \
             --cpu 2 \
+            --max-instances=2 \
             --service schooldata \
             --spatialite \
             --extra-options="--crossdb --setting sql_time_limit_ms 100000 --cors" \
